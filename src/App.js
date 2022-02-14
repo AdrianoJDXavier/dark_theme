@@ -1,25 +1,23 @@
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SignForm from './components/SignForm/SignForm';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme, NewStyles } from './theme';
+import Menu from './components/Menu/Menu';
 
-function App() {
+const App = () => {
+  const [theme, setTheme] = useState("light");
+  const isDarkTheme = theme === "dark";
+  const toggleTheme = () => setTheme(isDarkTheme ? "light" : "dark");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          text <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <Menu logo={logo} DarkTheme={isDarkTheme} onclick={toggleTheme}/>
+      <div className='center'>
+        <NewStyles />
+        <SignForm />
+      </div>
+    </ThemeProvider>
   );
 }
-
 export default App;
